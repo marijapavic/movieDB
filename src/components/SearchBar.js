@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 
-const SearchBar = () => {
+const SearchBar = ({ handleShowNavbar }) => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [results, setResults] = useState([]);
@@ -13,7 +13,6 @@ const SearchBar = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.results);
         const res = data.results.filter((movie) => {
           return (
             value &&
@@ -35,6 +34,7 @@ const SearchBar = () => {
 
   const clearSearch = () => {
     setInput("");
+    handleShowNavbar(false);
   };
 
   return (
@@ -51,7 +51,6 @@ const SearchBar = () => {
           className="input-search"
         />
       </div>
-
       <div className="results-list" onClick={() => setIsOpen(!isOpen)}>
         {isOpen && (
           <div>
